@@ -21,7 +21,38 @@ class PolyTreeNode
     # p "#{@children} current node children"
     # pnode.children.concat(@children)
     # @parent = @children[0]
+  end
 
+  def add_child(child_node)
+    child_node.parent = (self)
+  end
+
+  def remove_child(child_node)
+    raise "error" if !@children.include? child_node
+    child_node.parent = (nil)
+  end
+
+  def dfs(target)
+    return self if self.value == target
+    self.children.each do |node|
+      prev = node.dfs(target)
+      return prev unless prev == nil
+    end
+    return nil
+  end
+
+  def bfs(target)
+    queue = [self]
+
+    until queue.empty?
+      if queue.first.value == target
+        return queue.first
+      else
+        queue.concat(self.children)
+        queue.shift
+      end
+    end
+    nil
   end
 
   def inspect
