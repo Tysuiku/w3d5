@@ -1,4 +1,4 @@
-require_relative "skeleton/lib/00_tree_node.rb"
+require_relative "PolyTree.rb"
 
 class KnightPathFinder
   def self.valid_moves(pos)
@@ -15,7 +15,24 @@ class KnightPathFinder
   end
 
   def initialize(start_pos)
-    @start_pos = start_pos
-    @possible_pos = @start_pos
+    @start_pos = PolyTreeNode.new(start_pos)
+    @possible_pos = [@start_pos]
   end
+
+  def new_move_positions(pos)
+
+    returned_pos = KnightPathFinder.valid_moves(pos)
+    returned_pos.delete_if {|ele| ele.nil? || @possible_pos.include?(ele)}
+
+    returned_pos.each do |coordinate|
+      @possible_pos << coordinate unless @possible_pos.include?(coordinate)
+    end
+
+    returned_pos
+
+  end
+
+    
+
+
 end
