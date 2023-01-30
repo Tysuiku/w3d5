@@ -40,8 +40,10 @@ class KnightPathFinder
 
       nmp = new_move_positions(current_pos)
 
-      nmp.each do |next_pos|
+      nmp.each_with_index do |next_pos, i|
         next_node = PolyTreeNode.new(next_pos)
+
+        p "#{i + 1}:#{next_node}"
         current_node.add_child(next_node)
         queue << next_node
       end
