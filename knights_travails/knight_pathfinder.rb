@@ -1,26 +1,21 @@
+require_relative "skeleton/lib/00_tree_node.rb"
 
-
-class KnightPathfinder
-
-  attr_reader :root_node , :children, :parent
-  
-  def initialize
-    @root_node = [0,0]
-    @children = []
-    @parent = nil
-  end
-
-  def parent=(parent_node)
-    if @parent != nil
-      @parent.children.delete(self)
+class KnightPathFinder
+  def self.valid_moves(pos)
+    possible_moves = [[1, 2], [2, 1], [-1, -2], [-2, -1], [-2, 1], [-1, 2], [2, -1], [1, -2]]
+    good_moves = []
+    x, y = pos
+    possible_moves.each do |pair|
+      test_x = x + pair[0]
+      test_y = y + pair[1]
+      good_moves << [test_x, test_y] unless [test_x, test_y].any? { |ele| ele < 0 || ele > 7 }
     end
 
-    @parent = parent_node
-
-    parent_node.children << self unless pnode == nil
+    good_moves
   end
 
-  
-
-
+  def initialize(start_pos)
+    @start_pos = start_pos
+    @possible_pos = @start_pos
+  end
 end
