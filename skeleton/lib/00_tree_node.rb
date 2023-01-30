@@ -45,13 +45,11 @@ class PolyTreeNode
     queue = [self]
 
     until queue.empty?
-      if queue.first.value == target
-        return queue.first
-      else
-        queue.concat(self.children)
-        queue.shift
-      end
+      current_node = queue.shift
+      return current_node if current_node.value == target
+      queue.concat(current_node.children)
     end
+
     nil
   end
 
